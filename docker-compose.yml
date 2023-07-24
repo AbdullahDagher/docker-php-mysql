@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.33
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    environment: 
+      # - MYSQL_ALLOW_EMPTY_PASSWORD=TRUE
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 3307:3306
+    restart: always
+
+  server:
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASS=password
+      - MYSQL_NAME=docker
+      
+    ports:
+      - 8081:80
+    restart: always
+    depends_on:
+      - mysql
