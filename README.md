@@ -1,2 +1,3 @@
-To run the application run this command:
-docker compose up
+To run the application run this command:<br>
+<div>docker compose up</div>
+then follow this link: http://localhost:8081
